@@ -88,6 +88,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "preload-webpack-plugin": "^1.2.3"
+    "preload-webpack-plugin": "^1.2.3",
+    "webpack-bundle-analyzer": "^2.8.3"
   }
 }
