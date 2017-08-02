@@ -230,6 +230,15 @@ module.exports = {
   },
   plugins: [
     new PreloadPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: [ 'vendor', 'manifest' ],
+      minChunks: Infinity,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      async: true,
+      children: true,
+      minChunks: 4,
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
