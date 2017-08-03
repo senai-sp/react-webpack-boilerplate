@@ -4,9 +4,12 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import Lazy from './Lazy';
+import asyncComponent from './lib/asyncComponent';
 import logo from './logo.svg';
 import './App.css';
+
+// Load the async component and set the chunk's name to webpack
+const Lazy = asyncComponent(() => import(/* webpackChunkName: "lazy" */'./Lazy'));
 
 class App extends Component {
   render() {
