@@ -8,27 +8,27 @@ import React, { Component } from 'react';
  */
 export default (importComponent, loadingComponent = null) => {
   return class AsyncComponent extends Component {
-    static Component = null;
+    mounted = false;
 
-    static loadComponent() { // The function we call before rendering
+    state = {
+      Component: null,
+    };
+
+    loadComponent() { // The function we call before rendering
       // Use the  import function to create a separated chunk and load it
       return importComponent()
         .then(module => module.default)
         .then((Component) => {
-          AsyncComponent.Component = Component;
+          this.setState((state) => ({
+            Component,
+          }));
           return Component;
         });
     };
 
-    mounted = false;
-
-    state = {
-      Component: AsyncComponent.Component
-    };
-
     componentWillMount() {
       if(this.state.Component === null) {
-        AsyncComponent.loadComponent()
+        this.loadComponent()
           .then((Component) => {
             if(this.mounted) {
               this.setState({ Component });
