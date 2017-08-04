@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 /**
  * Async load the components
  * 
- * @param {function} importComponent
+ * @param {function} importComponent Impport function
  * @param {Component=} loadingComponent
  */
 export default (importComponent, loadingComponent = null) => {
