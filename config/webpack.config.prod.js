@@ -230,6 +230,7 @@ module.exports = {
   },
   plugins: [
     new PreloadPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       names: [ 'vendor', 'manifest' ],
       minChunks: Infinity,
