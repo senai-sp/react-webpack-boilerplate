@@ -38,14 +38,14 @@
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.3",
     "url-loader": "0.5.9",
-    "webpack": "2.6.1",
-    "webpack-dev-server": "2.5.0",
+    "webpack": "^3.5.1",
+    "webpack-dev-server": "^2.7.0",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "serve": "node server/index.js",
+    "serve": "node scripts/serve.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
