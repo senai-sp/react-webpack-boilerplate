@@ -1,35 +1,36 @@
-import { createServer } from 'http';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { StaticRouter } from 'react-router';
-import App from '../src/App';
+const express = require('express');
+const webpack = require('webpack');
+const chalk = require('chalk');
+const paths = require('../config/paths');
+const serverConfig = require('../config/webpack.config.server.js');
+const prodConfig = require('../config/webpack.config.prod.js');
 
-const server = createServer((req, res) => {
-  const context = {};
-  const html = ReactDOMServer.renderToString(
-    <StaticRouter
-      location={req.url}
-      context={context}
-    >
-      <App />
-    </StaticRouter>
-  );
+const app = express();
 
-  if (context.url) {
-    res.writeHead(301, {
-      location: context.url,
-    });
+const DEV = process.env.NODE_ENV === 'development';
+const PORT = process.env.PORT || 8088;
 
-    res.end();
-  } else {
-    res.write(`
-      <!doctype html>
-      <div id="app">${html}</div>
-    `);
+let isBuilt = false;
 
-    res.end();
-  }
-}).listen(4000);
+const liftServer = () => 
+  !isBuilt &&
+  app.listen(PORT, () => {
+    isBuilt = true;
+    console.log(`Server listening on port ${chalk.cyan(PORT)}`);
+  })
 
 
-export default server;
+if (DEV) {
+
+} else {
+  webpack([prodConfig, serverConfig]).run((err, stats) => {
+    if(err) throw err;
+
+    const clientStatus = stats.toJson().children[0];
+    const serverRender = require('../buildServer/main.js').default;
+    app.use(express.static(paths.appBuild));
+    app.use(serverRender({ clientStatus }));
+
+    liftServer();
+  });
+}

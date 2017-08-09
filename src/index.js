@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { 
+  BrowserRouter as Router
+} from 'react-router-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
@@ -10,7 +13,11 @@ import registerServiceWorker from './registerServiceWorker';
  * @param {Component} Component - The root component of your application
  */
 const render = Component => {
-  ReactDOM.render(<Component />, document.getElementById('root'));
+  ReactDOM.render(
+    <Router>
+      <Component />
+    </Router>
+  , document.getElementById('root'));
 }
 
 render(App);
