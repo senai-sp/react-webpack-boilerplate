@@ -28,7 +28,7 @@ if (DEV) {
 
     const clientStatus = stats.toJson().children[0];
     const serverRender = require('../buildServer/main.js').default;
-    app.use(express.static(paths.appBuild));
+    app.use('/static', express.static(paths.appBuild+'/static'));
     app.use(serverRender({ clientStatus }));
 
     liftServer();

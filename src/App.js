@@ -24,7 +24,12 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 
-        
+        <Route exact path="/" render={() => (
+          <Link to="/lazy">
+            Load Lazy component
+          </Link>
+        )} />
+        <Route path="/lazy" component={Lazy} />
       </div>
     );
   }
